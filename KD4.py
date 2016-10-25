@@ -47,7 +47,7 @@ def main():
     from time import time
     import os
     import sys
-    #import unicodedata
+    import unicodedata
     from progressbar import ProgressBar
     from nltk.probability import FreqDist
     from termcolor import colored
@@ -58,7 +58,7 @@ def main():
     while Mas==1:
         Mas=0
         print '\nInput Your File,, '
-        fold='E:\Alam\#Program_Language\Python\All_Skrip\Keyword_Density\Filee'
+        fold='F:\MyRepo\Keyword_Density\KeyDensPy\Filee'
         no=1
         FNm=[]
         for fname in os.listdir(fold):
@@ -78,7 +78,7 @@ def main():
                     File=0
                 
                 Finy=FNm[File-1]
-                path='E:\Alam\#Program_Language\Python\All_Skrip\Keyword_Density\Filee\\'+Finy
+                path='F:\MyRepo\Keyword_Density\KeyDensPy\Filee\\'+Finy
                 try:
                     if path[len(path)-4:]=='xlsx' or path[len(path)-3:]=='xls':
                         r=pd.read_excel(path)
@@ -152,110 +152,113 @@ def main():
             print colored('Try Again','red')
             print colored('=','red')*15
         
-    print '*'*60
-    try:
-        print 'Processing..'
-        r22=r.dropna()
-        r22=r22.texts.tolist()
-        
-        print '\n Tokenizing..'
-        
-        tw=[]
-        pbar = ProgressBar()   
-        for w in pbar(r22):
-            sleep(0.000000000000000000001)
-            try :
-                tw.append(word_tokenize(str(w)))
-            except:
-                #u=unicodedata.normalize('NFKD', w).encode('ascii','ignore')            
-                #try:
-                #    tw.append(word_tokenize(str(u)))
-                #except:
-                print colored('ERROR 6. There is one text which cannot be tokenized','red')
-                print colored('-','red')*15
-                print colored(w,'red')
-                print colored('-','red')*15
-                    
-        #Cleansing
-        print "\n Cleansiing.."
-        bar = ProgressBar()
-        tw2=[]
-        for i in bar(range(len(tw))):
-            sleep(0.000000000000000000001)
-            ww=[]
-            m=0
-            for w in tw[i]:
-                if w=='<':
-                    m=1
-                elif w=='>':
-                    m=0
-                
-                if m==0 and w not in ['/','-','*','<','>','\\','|','+','_','~','`','+','=','%','#','^','nan','NAN']:                         
-                    ww.append(w)
-            tw2.append(ww)
-        
-        AllWords=tw2
-        p_wo='Filter.xlsx' #File with un-use word 
-        wo=pd.read_excel(p_wo)
-        wo=wo['filter'].tolist()
-            
-        writer = pd.ExcelWriter('E:\Alam\#Program_Language\Python\All_Skrip\Keyword_Density\File_Result\\'+Finy[:len(Finy)-5]+'_result.xlsx')
-        
-        w=1
-        print '\n Counting..'
-        while w<=numb:
-            if w==1:
-                AllWords2=Word_list(AllWords,w)
-                if AllWords2!=[0,1]:
-                    time1=time()
-                    df_words=pd.DataFrame(pd.Series(AllWords2),columns=[('words')])
-                    df_words=df_words.loc[~df_words['words'].isin(wo)]
-                    g1=FreqDist(df_words.words.tolist())
-                    df_res=pd.DataFrame(g1,index=[0]).transpose()
-                    df_res=df_res.sort([0],ascending=0)
-                    print '\n  For',w,'word, Counting Time :',time()-time1 
-                else:
-                    df_res=pd.DataFrame(AllWords2)
-                    print colored('\n  For','red'),colored(w,'red'),colored('word, Counting Time : ERROR_7.. Too much Word','red')
-                
-                df_res.to_excel(writer,'Word_1')
-                
-            else:
-                sht='Word_'+str(w)
-                AllWords2=Word_list(AllWords,w)
-                if AllWords2!=[0,1]:
-                    time1=time()
-                    df_words=pd.DataFrame(pd.Series(AllWords2),columns=[('words')])
-                    df_words=df_words.loc[~df_words['words'].isin(wo)]
-                    g1=FreqDist(df_words.words.tolist())
-                    df_res=pd.DataFrame(g1,index=[0]).transpose()
-                    df_res=df_res.sort([0],ascending=0)
-                    print '\n  For',w,'word, Counting Time :',time()-time1                
-                else:
-                    df_res=pd.DataFrame(AllWords2)
-                    print colored('\n  For','red'),colored(w,'red'),colored('word, Counting Time : ERROR_7.. Too much Word','red')
-                df_res.to_excel(writer,sht)
-            w=w+1
-        
-        print '\n Exporting..'
-        writer.save()
-        print '*'*60
-        print 'Done'
-        print '--------------Thank You-------------'
-        sleep(3.0)
-    except:
-       print('-PROGRAMME ERROR-')
-       sleep(5.0)
+	print '*'*60
+    #try:
+	
+	print 'Processing..'
+	r22=r.dropna()
+	r22=r22.texts.tolist()
+
+	print '\n Tokenizing..'
+
+	tw=[]
+	pbar = ProgressBar()   
+	for w in pbar(r22):
+		sleep(0.000000000000000000001)
+		try :
+			tw.append(word_tokenize(str(w)))
+		except:
+			u=unicodedata.normalize('NFKD', w).encode('ascii','ignore')            
+			try:
+			    tw.append(word_tokenize(str(u)))
+			except:
+				print 'ERROR 6. There is one text which cannot be tokenized'
+				print '-'*15
+				print w
+				print '-'*15
+					
+	#Cleansing
+	print "\n Cleansiing.."
+	bar = ProgressBar()
+	tw2=[]
+	for i in bar(range(len(tw))):
+		sleep(0.000000000000000000001)
+		ww=[]
+		m=0
+		for w in tw[i]:
+			if w=='<':
+				m=1
+			elif w=='>':
+				m=0
+			
+			if m==0 and w not in ['/','-','*','<','>','\\','|','+','_','~','`','+','=','%','#','^','nan','NAN']:                         
+				ww.append(w)
+		tw2.append(ww)
+
+	AllWords=tw2
+	p_wo='Filter.xlsx' #File with un-use word 
+	wo=pd.read_excel(p_wo)
+	wo=wo['filter'].tolist()
+		
+	writer = pd.ExcelWriter('F:\MyRepo\Keyword_Density\KeyDensPy\File_Result\\'+Finy[:len(Finy)-5]+'_result.xlsx')
+
+	w=1
+	print '\n Counting..'
+	while w<=numb:
+		if w==1:
+			AllWords2=Word_list(AllWords,w)
+			if AllWords2!=[0,1]:
+				time1=time()
+				df_words=pd.DataFrame(pd.Series(AllWords2),columns=[('words')])
+				df_words=df_words.loc[~df_words['words'].isin(wo)]
+				g1=FreqDist(df_words.words.tolist())
+				df_res=pd.DataFrame(g1,index=[0]).transpose()
+				df_res=df_res.sort([0],ascending=0)
+				print '\n  For',w,'word, Counting Time :',time()-time1 
+			else:
+				df_res=pd.DataFrame(AllWords2)
+				print colored('\n  For','red'),colored(w,'red'),colored('word, Counting Time : ERROR_7.. Too much Word','red')
+			
+			df_res.index=[unicode(x) for x in df_res.index.tolist()]
+			df_res.to_excel(writer,'Word_1')
+			
+		else:
+			sht='Word_'+str(w)
+			AllWords2=Word_list(AllWords,w)
+			if AllWords2!=[0,1]:
+				time1=time()
+				df_words=pd.DataFrame(pd.Series(AllWords2),columns=[('words')])
+				df_words=df_words.loc[~df_words['words'].isin(wo)]
+				g1=FreqDist(df_words.words.tolist())
+				df_res=pd.DataFrame(g1,index=[0]).transpose()
+				df_res=df_res.sort([0],ascending=0)
+				print '\n  For',w,'word, Counting Time :',time()-time1                
+			else:
+				df_res=pd.DataFrame(AllWords2)
+				print colored('\n  For','red'),colored(w,'red'),colored('word, Counting Time : ERROR_7.. Too much Word','red')
+			df_res.index=[unicode(x) for x in df_res.index.tolist()]
+			df_res.to_excel(writer,sht)
+		w=w+1
+
+	print '\n Exporting..'
+	writer.save()
+	print '*'*60
+	print 'Done'
+	print '--------------Thank You-------------'
+	sleep(3.0)
+    #except:
+    #   print('-PROGRAMME ERROR-')
+    #   sleep(5.0)
 
 if __name__ == "__main__":
     from termcolor import colored
-    print colored('-','green')*50
-    print colored('Welcome to Keyword Density 4.0','green')
-    print colored('-','green')*50    
-    print colored('This Programme was built to count any word in the text. For our purpose, the programme only works for excel or csv file.','green')
-    print colored("If your text in ms.word file you can copy your text in excel cell A2 and type A1 as your column name such as 'Text'. ",'green')
-    print colored('Input your excel file on folder "Filee" from this programme. The Result would be end up on folder "File_Result"','green')
-    print colored('\nHave you input your file in that folder? (press enter button if you have)','green')   
+    print '-'*50
+    print 'Welcome to Keyword Density 4.0'
+    print '-'*50    
+    print 'This Programme was built to count any word in the text. For our purpose, the programme only works for excel or csv file.'
+    print "If your text in ms.word file you can copy your text in excel cell A2 and type A1 as your column name such as 'Text'. "
+    print 'Input your excel file on folder "Filee" from this programme. The Result would be end up on folder "File_Result"'
+    print '\nHave you input your file in that folder? (press enter button if you have)'
     a=raw_input()
     print '*'*60
     main()
