@@ -1,0 +1,24 @@
+id,parent_id,name,search_index
+1,0,"Accounting & Finance",0.24
+2,0,"Administrative & Customer Relationship",0.29
+3,0,Design,0.05
+4,0,"Engineering / Technician",0.14
+5,0,"Fresh Graduate",0.05
+6,0,"General Management & Operational",0.05
+7,0,IT,0.14
+8,0,"Human Resource",0.09
+9,0,"Marketing & PR",0.09
+10,0,"Sales & Business Development",0.19
+11,0,"Supply Chain & Logistic",0.05
+12,0,Others,0.05
+13,0,"Food & Beverage",0.05
+14,0,Transportation,0.05
+15,0,"Librarian / Curator",0.05
+16,0,"Tour & Travel",0.05
+17,0,"Education & Science",0.05
+18,0,"Writer / Media & Journalism / Printing & Publishing",0.05
+19,0,"General Worker",0.05
+20,0,"Healthcare & Medical",0.05
+21,0,"R&D / Quality Management",0.05
+22,0,"Corporate Finance / Investment",0.05
+23,0,"Legal, Consulting & Advisory",0.05
