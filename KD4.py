@@ -58,9 +58,10 @@ def main():
     while Mas==1:
         Mas=0
         print '\nInput Your File,, '
-        fold='F:\MyRepo\Keyword_Density\KeyDensPy\Filee'
+        fold='Filee'
         no=1
         FNm=[]
+
         for fname in os.listdir(fold):
             print no,'. ',fname
             FNm.append(fname)
@@ -78,7 +79,7 @@ def main():
                     File=0
                 
                 Finy=FNm[File-1]
-                path='F:\MyRepo\Keyword_Density\KeyDensPy\Filee\\'+Finy
+                path='Filee\\'+Finy
                 try:
                     if path[len(path)-4:]=='xlsx' or path[len(path)-3:]=='xls':
                         r=pd.read_excel(path)
@@ -200,7 +201,7 @@ def main():
 	wo=pd.read_excel(p_wo)
 	wo=wo['filter'].tolist()
 		
-	writer = pd.ExcelWriter('F:\MyRepo\Keyword_Density\KeyDensPy\File_Result\\'+Finy[:len(Finy)-5]+'_result.xlsx')
+	writer = pd.ExcelWriter('File_Result\\'+Finy[:len(Finy)-5]+'_result.xlsx')
 
 	w=1
 	print '\n Counting..'
